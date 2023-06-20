@@ -76,6 +76,8 @@ class _MainDrawerState extends State<MainDrawer> {
                     ),
                   ),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
@@ -83,7 +85,7 @@ class _MainDrawerState extends State<MainDrawer> {
                           getUserInfo.fullname ?? '',
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 24,
                           ),
                         ),
                       ),
@@ -126,39 +128,43 @@ class _MainDrawerState extends State<MainDrawer> {
           const SizedBox(
             height: 10,
           ),
-          const ListTile(
-            leading: Icon(Icons.person_2_sharp),
-            title: Text(
-              "Profile",
-              style: TextStyle(
-                fontSize: 18,
+          Column(
+            children: [
+              const ListTile(
+                leading: Icon(Icons.person_2_sharp),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                onTap: null,
               ),
-            ),
-            onTap: null,
-          ),
-          const ListTile(
-            leading: Icon(Icons.menu),
-            title: Text(
-              "Orders",
-              style: TextStyle(
-                fontSize: 18,
+              const ListTile(
+                leading: Icon(Icons.menu),
+                title: Text(
+                  "Orders",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                onTap: null,
               ),
-            ),
-            onTap: null,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              AuthServices.logoutUser(context);
-            },
-            child: const ListTile(
-              leading: Icon(Icons.logout_rounded),
-              title: Text(
-                "Logout",
-                style: TextStyle(
-                  fontSize: 18,
+              GestureDetector(
+                onTap: () {
+                  AuthServices.logoutUser(context);
+                },
+                child: const ListTile(
+                  leading: Icon(Icons.logout_rounded),
+                  title: Text(
+                    "Logout",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),
