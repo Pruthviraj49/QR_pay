@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code/qrGenerate.dart';
 import 'mainDrawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,6 +10,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void navigateToScreen(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const QRGenerator()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,8 +46,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           drawer: MainDrawer(),
           body: SingleChildScrollView(
-              child: Column(
-            children: const [Text("Hello World")],
+              child: Center(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 100,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      navigateToScreen(context);
+                    },
+                    child: const Text("Generate QR"))
+              ],
+            ),
           ))),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code/forgotPassword.dart';
 import 'package:qr_code/functions/authService.dart';
 
 class LoginForm extends StatefulWidget {
@@ -247,6 +248,30 @@ class _LoginFormState extends State<LoginForm> {
                   },
                 ),
 
+                const SizedBox(
+                  height: 30,
+                ),
+                login
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            child: const Text(
+                              "Forgot Password?",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Colors.blue),
+                            ),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ForgotPassWord(),
+                              ));
+                            },
+                          ),
+                        ],
+                      )
+                    : Container(),
                 const SizedBox(
                   height: 30,
                 ),

@@ -40,15 +40,24 @@ class _QRGeneratorState extends State<QRGenerator> {
             ),
           ),
         ),
-        body: Padding(
-          padding:
-              const EdgeInsets.only(top: 100, bottom: 20, left: 20, right: 20),
+        body: SingleChildScrollView(
           child: Column(children: [
-            TextField(
-              decoration: const InputDecoration(
-                hintText: 'Enter item name',
+            Padding(
+              padding: const EdgeInsets.only(top: 100.0, right: 10, left: 10),
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter item name',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    borderSide: BorderSide(color: Colors.black, width: 2),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    borderSide: BorderSide(color: Colors.black, width: 2),
+                  ),
+                ),
+                controller: itemName,
               ),
-              controller: itemName,
             ),
             const SizedBox(
               height: 20,
