@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:qr_code/homeScreen.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScanner extends StatefulWidget {
@@ -30,22 +31,19 @@ class _QRScannerState extends State<QRScanner> {
     controller!.resumeCamera();
   }
 
+  String? globalResult;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-          ),
           body: Stack(
-            alignment: Alignment.center,
-            children: [
-              buildQrView(context),
-              Positioned(bottom: 10, child: buildResult()),
-              Positioned(top: 10, child: builControlButtons()),
-            ],
-          )),
+        alignment: Alignment.center,
+        children: [
+          buildQrView(context),
+          Positioned(bottom: 10, child: buildResult()),
+          Positioned(top: 10, child: builControlButtons()),
+        ],
+      )),
     );
   }
 
@@ -70,6 +68,8 @@ class _QRScannerState extends State<QRScanner> {
     controller.scannedDataStream.listen((barcode) {
       setState(() {
         this.barcode = barcode;
+        globalResult = barcode.code;
+        Navigator.of(context).pop();
       });
     });
   }
@@ -77,7 +77,7 @@ class _QRScannerState extends State<QRScanner> {
   Widget buildResult() => Text(
         barcode != null ? 'Result : ${barcode!.code}' : 'Scan QR Code',
         maxLines: 3,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20,
           color: Colors.white,
         ),
@@ -85,7 +85,6 @@ class _QRScannerState extends State<QRScanner> {
 
   Widget builControlButtons() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
@@ -95,7 +94,9 @@ class _QRScannerState extends State<QRScanner> {
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.data != null) {
                   return Icon(
-                      snapshot.data! ? Icons.flash_on : Icons.flash_off);
+                    snapshot.data! ? Icons.flash_on : Icons.flash_off,
+                    size: 35,
+                  );
                 } else {
                   return Container();
                 }
@@ -105,6 +106,9 @@ class _QRScannerState extends State<QRScanner> {
               await controller?.toggleFlash();
               setState(() {});
             },
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
           ),
           IconButton(
             color: Colors.white,
@@ -116,7 +120,10 @@ class _QRScannerState extends State<QRScanner> {
               future: controller?.getCameraInfo(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.data != null) {
-                  return Icon(Icons.switch_camera_outlined);
+                  return const Icon(
+                    Icons.switch_camera_outlined,
+                    size: 35,
+                  );
                 } else {
                   return Container();
                 }

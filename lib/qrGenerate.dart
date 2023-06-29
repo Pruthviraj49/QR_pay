@@ -10,6 +10,7 @@ class QRGenerator extends StatefulWidget {
 
 class _QRGeneratorState extends State<QRGenerator> {
   final itemName = TextEditingController();
+
   String? data;
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class _QRGeneratorState extends State<QRGenerator> {
                 version: QrVersions.auto,
                 size: 200.0,
               ),
-            )
+            ),
           ]),
         ),
       ),

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const QRScanner();
+              return const HomeScreen();
             } else {
               return const LoginForm();
             }

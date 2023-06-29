@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code/ordersView.dart';
 import 'package:qr_code/qrGenerate.dart';
+import 'package:qr_code/qrScanner.dart';
 import 'mainDrawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,9 +12,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void navigateToScreen(BuildContext context) {
+  void navigateToGenerate(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const QRGenerator()));
+        .push(MaterialPageRoute(builder: (context) => QRGenerator()));
+  }
+
+  void navigateToScan(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const QRScanner()));
+  }
+
+  void navigateToOrders(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const OrdersView()));
   }
 
   @override
@@ -53,10 +65,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 100,
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      navigateToScreen(context);
-                    },
-                    child: const Text("Generate QR"))
+                  onPressed: () {
+                    navigateToGenerate(context);
+                  },
+                  child: const Text("Generate QR"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    navigateToScan(context);
+                  },
+                  child: const Text("Scan QR"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    navigateToOrders(context);
+                  },
+                  child: const Text("Orders"),
+                ),
               ],
             ),
           ))),
