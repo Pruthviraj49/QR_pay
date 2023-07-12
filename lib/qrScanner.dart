@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code/homeScreen.dart';
+import 'package:qr_code/transactionInfo.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScanner extends StatefulWidget {
@@ -69,15 +70,23 @@ class _QRScannerState extends State<QRScanner> {
       setState(() {
         this.barcode = barcode;
         globalResult = barcode.code;
-        Navigator.of(context).pop();
+        Navigator.of(context)
+            .push(MaterialPageRoute(
+                builder: (context) => TransactionInfo(globalResult)))
+            .then((_) {
+          // This code will execute after returning from the TransactionInfo screen
+          controller.resumeCamera(); // Resume the camera scanning
+        });
       });
+      controller.pauseCamera(); // Pause the camera after receiving a barcode
     });
   }
 
-  Widget buildResult() => Text(
-        barcode != null ? 'Result : ${barcode!.code}' : 'Scan QR Code',
+  Widget buildResult() => const Text(
+        // barcode != null ? 'Result : ${barcode!.code}' :
+        'Scan QR Code',
         maxLines: 3,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 20,
           color: Colors.white,
         ),
