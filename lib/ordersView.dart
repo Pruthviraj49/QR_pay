@@ -49,6 +49,7 @@ class _OrdersViewState extends State<OrdersView> {
     });
 
     try {
+      await Future.delayed(Duration(milliseconds: 50));
       final orderSnapshot = await FirebaseFirestore.instance
           .collection('orders')
           .doc(_uid)
@@ -93,7 +94,7 @@ class _OrdersViewState extends State<OrdersView> {
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
           title: const Text(
-            "VJTI",
+            "Order Details",
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -127,18 +128,28 @@ class _OrdersViewState extends State<OrdersView> {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       OrderModel order = _orders[index];
-                      return ListTile(
-                          title: Text('Item ${order.itemName}'),
-                          subtitle:
-                              Text('Quantity: ${order.quantity.toString()}'),
-                          trailing: Column(
-                            children: [
-                              Text('Time:${formatTimestamp(order.timestamp)}'),
-                              Text(
-                                'Total Price: ₹${order.total}',
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ListTile(
+                              title: Text(
+                                '${order.itemName}',
+                                style: TextStyle(fontSize: 20),
                               ),
-                            ],
-                          ));
+                              subtitle: Text(
+                                  'Quantity: ${order.quantity.toString()}'),
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Total :  ₹${order.total}',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Text('${formatTimestamp(order.timestamp)}'),
+                                ],
+                              )),
+                        ),
+                      );
                     },
                   ),
                 ],

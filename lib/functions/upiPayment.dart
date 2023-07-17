@@ -38,8 +38,8 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
   Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
         app: app,
-        receiverUpiId: "pdsuryawanshi45@ibl",
-        receiverName: 'Pruthviraj',
+        receiverUpiId: "samahakal@axl",
+        receiverName: 'Shubham',
         transactionRefId: 'Testing Upi India Plugin',
         transactionNote: 'Item Name',
         amount: 1.00,
@@ -150,7 +150,7 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
-          title: const Text("VJTI",
+          title: const Text("UPI Payment",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -188,7 +188,7 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
                       child: Text(
                         _upiErrorHandler(snapshot.error.runtimeType),
                         style: header,
-                      ), // Print's text message on screen
+                      ),
                     );
                   }
 

@@ -44,6 +44,7 @@ dependencies:
   qr_flutter: ^4.1.0
   google_fonts: ^4.0.0
   intl: ^0.18.1
+  image_picker:
   path_provider:
   share:
   image:

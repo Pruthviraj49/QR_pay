@@ -19,7 +19,7 @@ class _QRGeneratorState extends State<QRGenerator> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60.0),
           child: AppBar(
-            title: const Text("VJTI",
+            title: const Text("Generate QR",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -44,7 +44,7 @@ class _QRGeneratorState extends State<QRGenerator> {
         body: SingleChildScrollView(
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.only(top: 100.0, right: 10, left: 10),
+              padding: const EdgeInsets.only(top: 100.0, right: 15, left: 15),
               child: TextField(
                 decoration: const InputDecoration(
                   hintText: 'Enter item name',
@@ -61,24 +61,37 @@ class _QRGeneratorState extends State<QRGenerator> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 50,
+            ),
+            Center(
+              child: QrImageView(
+                data: '$data.trim()',
+                version: QrVersions.auto,
+                size: 250.0,
+              ),
+            ),
+            const SizedBox(
+              height: 50,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                // Text color
+                padding: EdgeInsets.symmetric(
+                    horizontal: 36, vertical: 16), // Button padding
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(30), // Button border radius
+                ),
+                elevation: 3, // Button shadow
+              ),
               onPressed: () {
                 setState(() {
                   data = itemName.text;
                 });
               },
-              child: const Text("Generate QR"),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Center(
-              child: QrImageView(
-                data: '$data',
-                version: QrVersions.auto,
-                size: 200.0,
+              child: Text(
+                "Generate QR",
+                style: TextStyle(fontSize: 16),
               ),
             ),
           ]),
