@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code/auth/login.dart';
 import 'package:qr_code/bottomNavigate.dart';
+import 'package:qr_code/functions/googlePay.dart';
+
 import 'package:qr_code/functions/upiPayment.dart';
 import 'package:qr_code/homeScreen.dart';
 import 'package:qr_code/qrGenerate.dart';

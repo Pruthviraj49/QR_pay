@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code/functions/upiPayment.dart';
+import 'package:qr_code/ordersView.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class TransactionInfo extends StatefulWidget {
   String? itemID;
@@ -32,6 +34,10 @@ class _TransactionInfoState extends State<TransactionInfo> {
   void initState() {
     super.initState();
     fetchTransactionData();
+    // _razorpay = Razorpay();
+    // _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    // _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    // _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
   void fetchTransactionData() async {
@@ -84,6 +90,51 @@ class _TransactionInfoState extends State<TransactionInfo> {
         total = price * quantity;
       }
     });
+  }
+
+  Razorpay? _razorpay;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Handle payment success
+    print("Payment success - Payment ID: ${response.paymentId}");
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Handle payment failure
+    print(
+        "Payment error - Code: ${response.code}, Message: ${response.message}");
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Handle external wallet
+    print("External wallet - Wallet Name: ${response.walletName}");
+  }
+
+  void openCheckout() async {
+    var options = {
+      'key': 'rzp_test_4WemY756lrIb0j', // Replace with your Razorpay API key
+      'amount': 100, // Amount in paisa
+      'name': 'Vjti Canteen',
+      'description': 'Payment for Canteen',
+      'prefill': {
+        'contact': '9529142977',
+        'email': 'abcd@gmail.com',
+      },
+      'external': {
+        'wallets': ['paytm'], // Optional: List of supported external wallets
+      }
+    };
+
+    try {
+      _razorpay?.open(options);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -221,6 +272,7 @@ class _TransactionInfoState extends State<TransactionInfo> {
                                     elevation: 3, // Button shadow
                                   ),
                                   onPressed: () {
+                                    // openCheckout();
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
